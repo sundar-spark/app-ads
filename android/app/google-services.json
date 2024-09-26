@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "201712669612",
+    "project_id": "truepon-696cc",
+    "storage_bucket": "truepon-696cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201712669612:android:abc1abbc3e0f760b9ba009",
+        "android_client_info": {
+          "package_name": "com.example.ads_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "201712669612-5fo5mm6pdngh40fooi98pq4bsmo9tc0g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ads_app",
+            "certificate_hash": "bf2ad08797889359ef5aac17e288dedc9788e740"
+          }
+        },
+        {
+          "client_id": "201712669612-3vposslr9tiu14pdf33ortqkfa4m034p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMZK9Z60dxkzKzf0YwzxD5VL1OLt3EUcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "201712669612-3vposslr9tiu14pdf33ortqkfa4m034p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "201712669612-bu7407auq2jt4b0pjnpf99tp96opc55f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.adsApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201712669612:android:62a47da60c00c77c9ba009",
+        "android_client_info": {
+          "package_name": "com.truepon.truepon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "201712669612-m3up99tlnkjqomgn0eue1fke1q0o98e7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.truepon.truepon",
+            "certificate_hash": "bf2ad08797889359ef5aac17e288dedc9788e740"
+          }
+        },
+        {
+          "client_id": "201712669612-3vposslr9tiu14pdf33ortqkfa4m034p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMZK9Z60dxkzKzf0YwzxD5VL1OLt3EUcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "201712669612-3vposslr9tiu14pdf33ortqkfa4m034p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "201712669612-bu7407auq2jt4b0pjnpf99tp96opc55f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.adsApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

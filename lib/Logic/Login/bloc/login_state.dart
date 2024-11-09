@@ -16,8 +16,8 @@ final class LoginInitial extends LoginState {
 
 final class OTPSentState extends LoginState{
   
-  final Function(String sms) OTP;
-  OTPSentState({required this.OTP});
+  final String phoneVerificationId;
+  OTPSentState({required this.phoneVerificationId});
   
   @override
   List<Object?> get props => [];

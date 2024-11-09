@@ -24,23 +24,49 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(LoginLoadingState());
    });
 
-   on<PinVerficationEvent>((event, emit)async{
-                            emit(LoginLoadingState());
-                            PhoneAuthCredential credential =
-                                PhoneAuthProvider.credential(
-                                    verificationId: event.verificationCode,
-                                    smsCode: event.pin);
+  on<sendOTPEvent>((event, emit)async{
+    emit(LoginLoadingState());
 
-                            var value = await auth.signInWithCredential(credential);
-                            print("Auth value: $value, \n ${value.additionalUserInfo?.isNewUser}, ${value.credential}");
-                            if(value.additionalUserInfo?.isNewUser??false)
-                            {
-                              emit(LoginNewUserState());
-                            }
-                            else if(value.user != null)
-                            {
-                              emit(LoginSuccessState());
-                            }
+
+    await auth
+        .verifyPhoneNumber(
+      phoneNumber:
+          '${event.countryCode}${event.phoneNumber}'.trim(),
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await auth.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        debugPrint("Auth: verifiactionFailed error: $e");
+      },
+      codeSent: (String verificationId, int? resendToken) async {
+
+        emit(OTPSentState(phoneVerificationId: verificationId));
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    )
+        .onError((error, stackTrace) {
+      debugPrint("Auth: sms Error: $error \n$stackTrace");
+    });
+
+  });
+
+   on<PinVerficationEvent>((event, emit)async{
+      emit(LoginLoadingState());
+      PhoneAuthCredential credential =
+          PhoneAuthProvider.credential(
+              verificationId: event.verificationCode,
+              smsCode: event.pin);
+
+      var value = await auth.signInWithCredential(credential);
+      print("Auth value: $value, \n ${value.additionalUserInfo?.isNewUser}, ${value.credential}");
+      if(value.additionalUserInfo?.isNewUser??false)
+      {
+        emit(LoginNewUserState());
+      }
+      else if(value.user != null)
+      {
+        emit(LoginSuccessState());
+      }
    }
  );
 

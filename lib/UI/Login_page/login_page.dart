@@ -2,13 +2,17 @@ import 'package:ads_app/Logic/Login/bloc/login_bloc.dart';
 import 'package:ads_app/UI/home_page/homepage.dart';
 import 'package:ads_app/UI/new_user_page/new_user_page.dart';
 import 'package:ads_app/UI/shared_widgets/circular_laoding_screen.dart';
+import 'package:ads_app/route_generator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class LoginPage extends StatefulWidget {
+  static const route = '/login';
+  
   const LoginPage({super.key});
 
   @override
@@ -29,32 +33,6 @@ class _LoginPageState extends State<LoginPage> {
     countryCodeController.text = "+91";
   }
 
-//All SignIn Login In this Fuction
-  sendOTP(BuildContext context) async {
-    await auth
-        .verifyPhoneNumber(
-      phoneNumber:
-          '${countryCodeController.text}${phonenumberController.text}'.trim(),
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        await auth.signInWithCredential(credential);
-      },
-      verificationFailed: (FirebaseAuthException e) {
-        print("Auth: verifiactionFailed error: $e");
-      },
-      codeSent: (String verificationId, int? resendToken) async {
-        // String smsCode = "xxxxxx";
-        setState(() {
-          phoneVerificationId = verificationId;
-          codeVisibility = true;
-        });
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {},
-    )
-        .onError((error, stackTrace) {
-      print("Auth: sms Error: $error \n$stackTrace");
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -62,11 +40,11 @@ class _LoginPageState extends State<LoginPage> {
         body: BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if(state is LoginNewUserState){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=> NewUserPage()));
+          context.replaceNamed('/newUser');
         }
         if(state is LoginSuccessState)
         {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=> HomePage()));
+          context.replaceNamed(HomePage.route);
         }
       },
       builder: (context, state) {
@@ -99,8 +77,13 @@ class _LoginPageState extends State<LoginPage> {
                                   });
                                 }
                               },
-                              //initialValue: "+91",
-                              decoration: InputDecoration(
+                              // initialValue: "+91",
+                               style: const TextStyle(
+                                color: Colors.blue,      // Input text color
+                                fontSize: 18.0,          // Font size
+                                fontWeight: FontWeight.bold, // Font weight
+                              ),
+                              decoration: const InputDecoration(
                                   labelText: "code",
                                   border: OutlineInputBorder())),
                         ),
@@ -109,8 +92,14 @@ class _LoginPageState extends State<LoginPage> {
                           child: TextFormField(
                             keyboardType: TextInputType.phone,
                             controller: phonenumberController,
-                            decoration: InputDecoration(
+                             style: const TextStyle(
+                              color: Colors.blue,      // Input text color
+                              fontSize: 18.0,          // Font size
+                              fontWeight: FontWeight.bold, // Font weight
+                            ),
+                            decoration: const InputDecoration(
                                 labelText: "Phone Number",
+                                
                                 border: OutlineInputBorder()),
                           ),
                         ),
@@ -120,19 +109,22 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                           onPressed: () {
-                            sendOTP(context);
+                           context.read<LoginBloc>().add(
+                            sendOTPEvent(
+                              countryCode: countryCodeController.text, 
+                              phoneNumber: phonenumberController.text));
                           },
-                          child: Text("Send OTP")),
+                          child: const Text("Send OTP")),
                     ),
                     SizedBox(
                       height: size.height * 0.1,
                     ),
                     Visibility(
-                        visible: codeVisibility, child: Text("Please enter OTP")),
+                        visible: state is OTPSentState, child: const Text("Please enter OTP")),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Visibility(
-                          visible: codeVisibility,
+                          visible: state is OTPSentState,
                           child: Pinput(
                             length: 6,
                             onCompleted: (pin) async {
@@ -141,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                                     context.read<LoginBloc>().add(
                                   PinVerficationEvent(
                                     pin: pin, 
-                                    verificationCode: phoneVerificationId!));
+                                    verificationCode: (state as OTPSentState).phoneVerificationId));
                               }
                               },
                             

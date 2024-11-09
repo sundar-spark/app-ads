@@ -22,7 +22,7 @@ class _BillsPageState extends State<BillsPage> {
           body: BlocConsumer<BillsBloc, BillsState>(
             listener: (context, state) {
               if (state.isLoading) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text(
               "loading...",
               textAlign: TextAlign.center,

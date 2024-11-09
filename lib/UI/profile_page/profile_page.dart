@@ -10,47 +10,83 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+
+  @override
+  void initState() {
+    
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
-  var size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
      // color:Colors.amber,
       child:Center(
         child: Column(children: [
-          Card(
-            color: Color.fromARGB(255, 218, 238, 255),
-            child:Container(
-            padding: EdgeInsets.all(8),
-            height: size.height*0.3,
-            width: size.width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+          Container(
+          padding: const EdgeInsets.all(8),
+          child: 
+               Column(
+                children: [
+                  const CircleAvatar(
+                    radius: 60,
+                    backgroundImage: AssetImage('lib/assets/images/original-2b1144775c41b50133edf852dd54f347.png'),),
+                  
+                  Text("Name",style: Theme.of(context).textTheme.headlineLarge ),
+                  Text("LW2016",style:Theme.of(context).textTheme.bodyLarge)
+                    ],
+              
+          ),),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child:Column(
               children: [
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 60,
-                      backgroundImage: AssetImage('lib/assets/images/original-2b1144775c41b50133edf852dd54f347.png'),),
-                    
-                    Text("Name",style: TextStyle(fontSize: 24),),
-                    Text("LW2016",style:TextStyle(fontSize: 18))
-                      ],
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: phoneNumberController,
+                  obscureText: true,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(letterSpacing: 5),
+                  decoration: const InputDecoration(
+                      labelText: "Phone Number",
+                      border: OutlineInputBorder()),
                 ),
-                Column(),
+                const SizedBox(height: 12,),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: emailController,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(letterSpacing: 5),
+                  decoration: const InputDecoration(
+                      labelText: "Email-ID",
+                      border: OutlineInputBorder()),
+                ),
+                const SizedBox(height: 12,),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  maxLines: 8,
+                  controller: addressController,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  decoration: const InputDecoration(
+                      labelText: "Your Address",
+                      alignLabelWithHint: true,
+                      border: OutlineInputBorder()),
+                ),
+               Text("Your Address will not be revealed to anyone unless a delivery is requested", style: Theme.of(context).textTheme.bodySmall,)
               ],
-            ),)
-        ),
-        
+            )
+          ),
+        const Spacer(),
         ElevatedButton(onPressed: ()async{
           FirebaseAuth fba = FirebaseAuth.instance;
           await fba.signOut();
           if(fba.currentUser==null){
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> LoginPage()),(value)=>false);
           }
-        }, child: Text("Logout"))
+        }, child: const Text("Logout"))
         ],)
       ));
   }

@@ -24,6 +24,13 @@ final class VerificationLinkSentEvent extends LoginEvent{
   VerificationLinkSentEvent({required this.email, required this.email_link});
 }
 
+final class sendOTPEvent extends LoginEvent {
+  final String countryCode;
+  final String phoneNumber;
+
+  sendOTPEvent({required this.countryCode, required this.phoneNumber});
+}
+
 final class PinVerficationEvent extends LoginEvent {
 
   final String verificationCode;

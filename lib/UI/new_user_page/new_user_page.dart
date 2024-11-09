@@ -2,6 +2,7 @@ import 'package:ads_app/service/firestore_db/firestore_services.dart';
 import 'package:flutter/material.dart';
 
 class NewUserPage extends StatefulWidget {
+  static const route = '/newUser';
   const NewUserPage({super.key});
 
   @override
@@ -15,6 +16,13 @@ class _NewUserPageState extends State<NewUserPage> {
   TextEditingController dobController = TextEditingController();
   DateTime? dob;
   int avatarSelectNumber =1;
+
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +109,7 @@ class _NewUserPageState extends State<NewUserPage> {
                         child: CircleAvatar(
                           radius: 50,
                           backgroundColor: avatarSelectNumber==1?Colors.green:Colors.grey,
-                        child: CircleAvatar(
+                        child: const CircleAvatar(
                           radius: 48,
                           backgroundImage: AssetImage('lib/assets/images/original-2b1144775c41b50133edf852dd54f347.png'),),),
                       ),
@@ -115,7 +123,7 @@ class _NewUserPageState extends State<NewUserPage> {
                           child: CircleAvatar(
                           radius: 50,
                           backgroundColor: avatarSelectNumber==2?Colors.green:Colors.grey,
-                                                child: CircleAvatar(
+                                                child: const CircleAvatar(
                           radius: 48,
                           backgroundImage: AssetImage('lib/assets/images/original-dd3ce9cb4856d98295be2a9a5525b5bb.png'),),),
                         ),
@@ -129,7 +137,7 @@ class _NewUserPageState extends State<NewUserPage> {
                            child: CircleAvatar(
                                                    radius: 50,
                                                    backgroundColor: avatarSelectNumber==3?Colors.green:Colors.grey,
-                                                 child: CircleAvatar(
+                                                 child: const CircleAvatar(
                                                    radius: 48,
                                                    backgroundImage: AssetImage('lib/assets/images/original-fbeddcbe07c6e1b377c7bc4820c0893c.png'),),),
                          )

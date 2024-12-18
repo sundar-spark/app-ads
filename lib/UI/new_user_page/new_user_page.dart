@@ -1,5 +1,8 @@
+import 'package:ads_app/UI/home_page/homepage.dart';
+import 'package:ads_app/route_generator.dart';
 import 'package:ads_app/service/firestore_db/firestore_services.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class NewUserPage extends StatefulWidget {
   static const route = '/newUser';
@@ -17,29 +20,22 @@ class _NewUserPageState extends State<NewUserPage> {
   DateTime? dob;
   int avatarSelectNumber =1;
 
-
-  @override
-  void initState() {
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
       body: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: SafeArea(
           child: Form(
             child: Column(
               children: [
-                Text("Looks Like you are new here, We'd love to get to know more about you"),
+                const Text("Looks Like you are new here, We'd love to get to know more about you"),
                 
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     controller: nameController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: "What's your Name?",
                                   border: OutlineInputBorder()),),
                 ),
@@ -70,7 +66,7 @@ class _NewUserPageState extends State<NewUserPage> {
                 //                   labelText: "Choose your User ID",
                 //                   border: OutlineInputBorder()),),),
               
-                Text("when were you born? "),
+                const Text("when were you born? "),
               
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -88,11 +84,11 @@ class _NewUserPageState extends State<NewUserPage> {
                                     });
                                     }
                                     
-                                    }, icon: Icon(Icons.calendar_month),),
+                                    }, icon: const Icon(Icons.calendar_month),),
                                   labelText: "Your Date of Birth",
-                                  border: OutlineInputBorder()),),),
+                                  border: const OutlineInputBorder()),),),
                 
-                Text("Choose an Avatar for your Display Picture"),
+                const Text("Choose an Avatar for your Display Picture"),
               
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -143,9 +139,12 @@ class _NewUserPageState extends State<NewUserPage> {
                          )
                     ],),
                 ),
-                    ElevatedButton(onPressed: () { 
-                      FireBaseService().addUser(nameController.text,dob! , avatarSelectNumber);
-                     }, child: Text("Lets get started"),)
+                    ElevatedButton(onPressed: () async{ 
+                      await FireBaseService().addUser(nameController.text,dob! , avatarSelectNumber);
+                      context.replaceNamed(HomePage.route);
+                   
+                      
+                     }, child: const Text("Lets get started"),)
               
               ]
             ),

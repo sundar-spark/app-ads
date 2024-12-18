@@ -55,7 +55,7 @@ class _LandingDesktopState extends State<LandingDesktop> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 650,
+            expandedHeight: 400,//650,
             floating: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
@@ -65,10 +65,7 @@ class _LandingDesktopState extends State<LandingDesktop> {
                   key: ValueKey<String>(_titles[_currentIndex]),
                   style: const TextStyle(color: Colors.white),)),
               expandedTitleScale: 2.5,
-              background: Image.network(
-                "https://media.istockphoto.com/id/1315096305/photo/green-computing-green-technology-green-it-csr-and-it-ethics-concept.jpg?s=2048x2048&w=is&k=20&c=NoCdNLCoCQga-Sg19af4hduVHHAnoluiLC3XbqYr7k0=",
-                fit: BoxFit.cover,
-              ),
+            background: Container(color: Colors.yellow,),
             ),
           ),
         SliverToBoxAdapter(

@@ -27,7 +27,7 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blue,
           foregroundColor: Colors.white,
-          textStyle: TextStyle(fontSize: 18),
+          textStyle: const TextStyle(fontSize: 18),
         ),
       ),
     );

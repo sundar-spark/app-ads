@@ -1,13 +1,14 @@
-part of 'profile_bloc.dart';
 
-sealed class ProfileState extends Equatable {
-  const ProfileState();
-  
-  @override
-  List<Object> get props => [];
-}
+import 'package:ads_app/models/user_data.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-final class ProfileInitial extends ProfileState {}
+part 'profile_state.freezed.dart';
 
-//Profile Loading
-final class ProfileLoadingState extends ProfileState{}
+@freezed
+class ProfileState with _$ProfileState {
+const factory ProfileState({
+    UserData? userData,
+   @Default(false) bool isLoading,
+    String? errorMessage,
+  }) = _ProfileState;
+} 

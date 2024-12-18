@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<LoginBloc>(create: (context)=>LoginBloc()),
-        BlocProvider<ProfileBloc>(create: (context)=>ProfileBloc()),
       ],
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         title: 'Truepon',
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,

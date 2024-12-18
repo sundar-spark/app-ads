@@ -6,8 +6,9 @@ part  'user_data.g.dart';
 class UserData {
 
   final String name;
+  @JsonKey(name: "userId")
   final String howlCode;
-  final String? dpNumber;
+  final int? dpNumber;
   final String?  emailId;
   final String? phoneNumber;
   final String? address;

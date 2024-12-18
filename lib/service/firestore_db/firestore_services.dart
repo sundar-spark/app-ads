@@ -12,17 +12,16 @@ class FireBaseService{
     final user = <String, dynamic>{
   "name": name,
   "dateOfBirth": dob,
-  "userId": await generateID(),
+  "userId": await _generateID(),
   "uuid": FirebaseAuth.instance.currentUser!.uid,
   "phoneNumber": FirebaseAuth.instance.currentUser!.phoneNumber,
   "dpNumber": dbNumber,
 };
-   await firestoreDb.collection("users").add(user).then((DocumentReference doc){
-    print("FireStore: newUser: $doc");
-   }).onError((error, stackTrace) {print("FireStore Error: $error \n$stackTrace");});
+   await firestoreDb.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).set(user);
   }
 
-  Future<String> generateID()async{
+/// Generates a new Howl Code
+  Future<String> _generateID()async{
     var random = Random();
     String newUserId="";
     bool flag =true;
@@ -31,12 +30,14 @@ class FireBaseService{
     var numbers = List.generate(4, (index) => random.nextInt(10).toString());
     newUserId =  '${letters.join()}${numbers.join()}';
 
-    flag = await doesStringExist(newUserId);
+    flag = await _doesStringExist(newUserId);
     }
     return newUserId;
 
   }
-  Future<bool> doesStringExist(String searchString) async {
+
+  ///Checks if the HowlCode Already Exists
+  Future<bool> _doesStringExist(String searchString) async {
   try {
     // Reference to your Firestore collection
     CollectionReference collectionRef = FirebaseFirestore.instance.collection('users');

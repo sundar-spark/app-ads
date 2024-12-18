@@ -1,10 +1,9 @@
-part of 'profile_bloc.dart';
 
-sealed class ProfileEvent extends Equatable {
-  const ProfileEvent();
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  @override
-  List<Object> get props => [];
+part 'profile_event.freezed.dart';
+
+@freezed
+class ProfileEvent with _$ProfileEvent {
+  const factory ProfileEvent.started() = ProfileInit;
 }
-
-class StartedProfileEvent extends ProfileEvent {}

@@ -19,8 +19,12 @@ class _BillSheetState extends State<BillSheet> {
 
    billItems.add(TableRow(children: [
                     Text("Item",style: TextStyle(fontWeight: FontWeight.bold)),
-                    Center(child: Text("Qty",style: TextStyle(fontWeight: FontWeight.bold))),
-                    Text("Amount",style: TextStyle(fontWeight: FontWeight.bold))
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text("Qty",style: TextStyle(fontWeight: FontWeight.bold))),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text("Amount",style: TextStyle(fontWeight: FontWeight.bold)))
                   ])); 
     for(var value in widget.bill.billItems)
     {
@@ -45,8 +49,8 @@ class _BillSheetState extends State<BillSheet> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Chocolate Room",style: TextStyle(fontWeight: FontWeight.bold),),
-            Text("Some Wierd Address",
+            Text("Clothing Room",style: TextStyle(fontWeight: FontWeight.bold),),
+            Text("Anna Nagar, Chennai-101",
              maxLines: 25,
              overflow: TextOverflow.ellipsis,
              textAlign: TextAlign.center,),
@@ -56,32 +60,40 @@ class _BillSheetState extends State<BillSheet> {
              ),
              Table(
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-            
+            // border: TableBorder.all(),
               columnWidths: { 
                 0: FlexColumnWidth(200),//FixedColumnWidth(200),
                 1: FlexColumnWidth(40),
                 2: FlexColumnWidth(64), },
               children: _getBillItems()),
               Divider(),
+
               Table(
+                // border: TableBorder.all(),
                 columnWidths: { 
                 0: FlexColumnWidth(200),//FixedColumnWidth(200),
-                1: FlexColumnWidth(100),
+                1: FlexColumnWidth(40),
                 2: FlexColumnWidth(64), },
                 children: [
                 TableRow(
                   children: [
-                  Text("Total Qty: ${widget.bill.totalItems}",style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text("SubTotal",style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(widget.bill.subtotal.toString(),style: TextStyle(fontWeight: FontWeight.bold))
+                    Text("Total Qty: ${widget.bill.totalItems}",style: TextStyle(fontWeight: FontWeight.bold)),
+                    Align(
+                      alignment: Alignment.center,
+                      child:Text("SubTotal",style: TextStyle(fontWeight: FontWeight.bold))),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(widget.bill.subtotal.toString(),style: TextStyle(fontWeight: FontWeight.bold)))
                       ]
                     ),
+
+              
                 TableRow(children: [
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Text("CGST",style: TextStyle(fontWeight: FontWeight.bold))),
+                    child: Text("CGST \t \t",style: TextStyle(fontWeight: FontWeight.bold))),
                     Align(
-                      alignment: Alignment.center,
+                      alignment: Alignment.centerRight,
                       child: Text("${widget.bill.cgstPercentage}%",style: TextStyle(fontWeight: FontWeight.bold))),
                     Align(
                       alignment: Alignment.centerRight,
@@ -91,9 +103,9 @@ class _BillSheetState extends State<BillSheet> {
                                    TableRow(children: [
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Text("SGST",style: TextStyle(fontWeight: FontWeight.bold))),
+                    child: Text("SGST \t \t",style: TextStyle(fontWeight: FontWeight.bold))),
                     Align(
-                      alignment: Alignment.center,
+                      alignment: Alignment.centerRight,
                       child: Text("${widget.bill.sgstPercentage}%",style: TextStyle(fontWeight: FontWeight.bold))),
                     Align(
                       alignment: Alignment.centerRight,
@@ -104,8 +116,8 @@ class _BillSheetState extends State<BillSheet> {
                       
                   ],),
                   Divider(),
-                  Text("round off\t+0.14"),
-                  Text("GrandTotal: ${widget.bill.totalAmount}",style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text("Round Off\t+0.00"),
+                  Text("Grand Total: Rs. 1800 ",style: TextStyle(fontWeight: FontWeight.bold)),//${widget.bill.totalAmount}
           ],
         )
       )

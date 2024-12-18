@@ -2,7 +2,6 @@ import 'package:ads_app/Logic/Login/bloc/login_bloc.dart';
 import 'package:ads_app/UI/home_page/homepage.dart';
 import 'package:ads_app/UI/new_user_page/new_user_page.dart';
 import 'package:ads_app/UI/shared_widgets/circular_laoding_screen.dart';
-import 'package:ads_app/route_generator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,6 @@ class _LoginPageState extends State<LoginPage> {
   FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController phonenumberController = TextEditingController();
   TextEditingController countryCodeController = TextEditingController();
-  String? phoneVerificationId;
   final countryPicker = const FlCountryCodePicker();
 
   @override
@@ -40,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         body: BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if(state is LoginNewUserState){
-          context.replaceNamed('/newUser');
+          context.replaceNamed(NewUserPage.route);
         }
         if(state is LoginSuccessState)
         {
@@ -128,8 +126,9 @@ class _LoginPageState extends State<LoginPage> {
                           child: Pinput(
                             length: 6,
                             onCompleted: (pin) async {
-                              print("LoginPage: onCompleted: $pin");
-                              if (phoneVerificationId != null) {
+                              debugPrint("LoginPage: onCompleted: $pin ");
+                              // ignore: unnecessary_null_comparison
+                              if ((state as OTPSentState).phoneVerificationId != null) {
                                     context.read<LoginBloc>().add(
                                   PinVerficationEvent(
                                     pin: pin, 
@@ -138,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                               },
                             
                             onSubmitted: (pin) {
-                              print("LoginPage: onSubmitted: $pin");
+                              debugPrint("LoginPage: onSubmitted: $pin");
                             },
                           )),
                     )

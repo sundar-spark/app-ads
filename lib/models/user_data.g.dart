@@ -8,8 +8,8 @@ part of 'user_data.dart';
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       name: json['name'] as String,
-      howlCode: json['howlCode'] as String,
-      dpNumber: json['dpNumber'] as String?,
+      howlCode: json['userId'] as String,
+      dpNumber: (json['dpNumber'] as num?)?.toInt(),
       emailId: json['emailId'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
       address: json['address'] as String?,
@@ -17,7 +17,7 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'name': instance.name,
-      'howlCode': instance.howlCode,
+      'userId': instance.howlCode,
       'dpNumber': instance.dpNumber,
       'emailId': instance.emailId,
       'phoneNumber': instance.phoneNumber,

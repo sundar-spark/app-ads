@@ -4,9 +4,12 @@ import 'package:ads_app/UI/bills_page/bloc/bills_event.dart';
 import 'package:ads_app/UI/offers_page/bloc/offers_bloc.dart';
 import 'package:ads_app/UI/offers_page/bloc/offers_event.dart';
 import 'package:ads_app/UI/offers_page/offers_page.dart';
+import 'package:ads_app/UI/profile_page/bloc/profile_bloc.dart';
+import 'package:ads_app/UI/profile_page/bloc/profile_event.dart';
 import 'package:ads_app/UI/profile_page/profile_page.dart';
 import 'package:ads_app/repositories/bill_repository.dart';
 import 'package:ads_app/repositories/offer_repository.dart';
+import 'package:ads_app/repositories/profile_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +31,14 @@ class _HomePageState extends State<HomePage> {
     var size = MediaQuery.of(context).size;
     return MultiProvider(
       providers: [
+
+        ///ProfilePage Bloc
+        Provider<ProfileRepository>(
+          create: (BuildContext context) =>ProfileRepositoryImpl(),),
+        BlocProvider<ProfileBloc>(
+          create: (context)=>ProfileBloc(
+            repository: context.read<ProfileRepository>())..add(ProfileEvent.started())),
+            
         //Bills Providers
         Provider<BillRepository>(
           create: (_) => BillRepositoryImpl(),
@@ -41,7 +52,9 @@ class _HomePageState extends State<HomePage> {
           create: (BuildContext context) =>OfferRepositoryImpl(),),
         BlocProvider<OffersBloc>(
           create: (context)=> OffersBloc(
-            repository: context.read<OfferRepository>())..add(OffersEvent.started()))
+            repository: context.read<OfferRepository>())..add(const OffersEvent.started())),
+
+        
 
         ],
       child: Builder(

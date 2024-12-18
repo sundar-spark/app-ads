@@ -14,13 +14,17 @@ class BillItem extends TableRow {
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 6.0),
         child: Text(item, maxLines: null),
+      ),  
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6.0),
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Text(quantity.toString())),
       ),
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 6.0),
-        child: Center(child: Text(quantity.toString())),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6.0),
-        child: Center(child: Text(price.toString())),
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Text(price.toString())),
       )]);
 }
